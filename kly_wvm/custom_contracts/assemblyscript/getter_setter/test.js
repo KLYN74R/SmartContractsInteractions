@@ -6,6 +6,10 @@ import fs from 'fs';
 let contractBytecode = fs.readFileSync('./contract.wasm');
 
 
+console.log(contractBytecode.toString('hex'));
+
+
+
 const meteredWasmBytecode = metering.meterWASM(contractBytecode,{meterType: 'i32'})
 
 const limit = 20_000_000
@@ -15,6 +19,7 @@ let gasUsed = 0
 
 let contractState = new Map()
 
+// State imitation
 contractState.set("nameHandler",{name:"Name_1"})
 
 
@@ -64,32 +69,3 @@ meteredContract.exports.changeName(stringifiedHandler);
 console.log('Gas spent => ',gasUsed);
 
 console.log('New value in state => ',contractState.get("nameHandler"));
-
-
-
-
-
-
-
-// let targetContractCallResult = meteredContract.exports.changeName(wasmedObject);
-  
-// let strTargetValue = meteredContract.exports.__getString(targetContractCallResult);
-
-
-// console.log(strTargetValue);
-  
-// console.log('Gas spent => ',gasUsed);
-
-
-
-// let wasmFeeContractLoaded  = await loader.instantiate(wasmFeeContract,{});
-
-// let contractObject = {name:"Vlad", tokensBalance: 10000000000000}
-
-// let wasmedContractObject = wasmFeeContractLoaded.exports.__newString(JSON.stringify(contractObject))
-
-// let feeContractCallResult = wasmFeeContractLoaded.exports.transferTokens(wasmedContractObject,gasUsed);
-  
-// let strFeeValue = wasmFeeContractLoaded.exports.__getString(feeContractCallResult);
-
-// console.log(strFeeValue)
