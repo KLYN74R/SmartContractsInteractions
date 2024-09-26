@@ -6,7 +6,7 @@ import fs from 'fs';
 let contractBytecode = fs.readFileSync('./contract.wasm');
 
 
-console.log(contractBytecode.toString('hex'));
+// console.log(contractBytecode.toString('hex'));
 
 
 
@@ -63,6 +63,8 @@ let handlerWithNewName = {name:"Name_2"}
 let stringifiedHandler = meteredContract.exports.__newString(JSON.stringify(handlerWithNewName))
 
 // Make call
+
+console.log('Initial value in state => ',contractState.get("nameHandler"));
 
 meteredContract.exports.changeName(stringifiedHandler);
 
