@@ -13,6 +13,10 @@
   "dependencies": {
     "@assemblyscript/loader": "0.20.13",
     "assemblyscript-json": "1.1.0",
-    "wasm-metering": "0.2.1"
+    "wasm-metering": "0.2.1",
+    "@ethereumjs/tx": "^4.0.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethereumjs/common": "^3.0.0",
+    "web3": "^1.8.0"
   }
 }

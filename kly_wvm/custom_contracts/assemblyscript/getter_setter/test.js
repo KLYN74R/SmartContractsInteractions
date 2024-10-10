@@ -10,11 +10,11 @@ let contractBytecode = fs.readFileSync('./contract.wasm');
 
 
 
-const meteredWasmBytecode = metering.meterWASM(contractBytecode,{meterType: 'i32'})
+const meteredWasmBytecode = metering.meterWASM(contractBytecode,{meterType: 'i64'})
 
-const limit = 20_000_000
+const limit = BigInt(20_000_000)
 
-let gasUsed = 0
+let gasUsed = BigInt(0)
 
 
 let contractState = new Map()
@@ -25,7 +25,8 @@ contractState.set("nameHandler",{name:"Name_1"})
 
 let meteredContract = await loader.instantiate(meteredWasmBytecode,{
     'metering': {
-      'usegas': (gas) => {
+      'usegas': (gas) => {  
+
         gasUsed += gas
         if (gasUsed > limit) {
           throw new Error('out of gas!')
@@ -66,7 +67,10 @@ let stringifiedHandler = meteredContract.exports.__newString(JSON.stringify(hand
 
 console.log('Initial value in state => ',contractState.get("nameHandler"));
 
-meteredContract.exports.changeName(stringifiedHandler);
+let returnedValue = meteredContract.exports.__getString(meteredContract.exports.changeName(stringifiedHandler));
+
+console.log('Returned value is => ',returnedValue);
+
 
 console.log('Gas spent => ',gasUsed);
 

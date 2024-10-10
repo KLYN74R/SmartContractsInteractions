@@ -19,8 +19,6 @@ setTimeout(()=>{
 
     console.log('Response => ',resp,`(energy ${energyUsed1})`);
     
-
-    
     // let [coordsSum,energyUsed2] = MOD.getCoordsSum(myObj);
 
     // console.log('CoordsSum ',coordsSum,`(energy ${energyUsed2})`);
